@@ -14,6 +14,7 @@ sudo podman run --hostname $NAME \
 	--interactive \
 	--security-opt label=disable \
 	--volume /sys:/sys \
+	--volume /proc:/proc \
 	--volume /run:/run \
 	--volume /var/log:/var/log \
 	--volume /etc/machine-id:/etc/machine-id \
