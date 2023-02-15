@@ -2,6 +2,7 @@
 
 NAME=perfinsights
 IMAGE=quay.io/pbertera/ocp-perfinsights
+sudo mkdir ${PWD}/report && chmod 777 ${PWD}/report
 
 sudo podman run --hostname $NAME \
 	--name $NAME \
@@ -20,5 +21,5 @@ sudo podman run --hostname $NAME \
 	--volume /etc/machine-id:/etc/machine-id \
 	--volume /etc/localtime:/etc/localtime \
 	--volume /etc/redhat-release:/etc/redhat-release \
-	--volume $PWD:/data \
+	--volume $PWD:/tmp/data \
 	$IMAGE $@
