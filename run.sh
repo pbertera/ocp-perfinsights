@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# ./run.sh -d 10S -r quick -a -q -o /tmp/report
+#
 NAME=perfinsights
 IMAGE=quay.io/pbertera/ocp-perfinsights
 sudo mkdir ${PWD}/report && chmod 777 ${PWD}/report
