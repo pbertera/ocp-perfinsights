@@ -21,5 +21,5 @@ sudo podman run --hostname $NAME \
 	--volume /etc/machine-id:/etc/machine-id \
 	--volume /etc/localtime:/etc/localtime \
 	--volume /etc/redhat-release:/etc/redhat-release \
-	--volume $PWD:/tmp/data \
+	--volume $PWD/report:/tmp/report \
 	$IMAGE $@
