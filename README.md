@@ -25,3 +25,7 @@ All the needed manifests are under the `manifests` folder, please review then be
 - `perfinsights-pvc.yaml` creates the PVC (adapt it to your needs)
 - `perfinsights-cronjob.yaml` creates the CronJob, you may want to adjust the node selector, schedule and args.
 - `perfinsights-consumer-pod.yaml` creates a dummy Pod mounting the volume so you can copy the reports
+
+## Disclaimer
+
+This is not an officially supported tool by Red Hat, nor Microsoft.
