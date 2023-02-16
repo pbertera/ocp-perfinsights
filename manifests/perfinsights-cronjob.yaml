@@ -1,0 +1,76 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: perfinsights
+spec:
+  schedule: "30 * * * *"
+  startingDeadlineSeconds: 600
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+          - args:
+            - -d
+            - 10M
+            - -r
+            - quick
+            - -a
+            - -q
+            - -o
+            - /report
+            image: quay.io/pbertera/ocp-perfinsights
+            imagePullPolicy: Always
+            name: perfinsights
+            securityContext:
+              privileged: true
+              runAsUser: 0
+            volumeMounts:
+            - mountPath: /sys
+              name: sys
+            - mountPath: /proc
+              name: proc
+            - mountPath: /run
+              name: run
+            - mountPath: /var/log
+              name: var-log
+            - mountPath: /etc/redhat-release
+              name: etc-redhat-release
+            - name: report
+              mountPath: /report
+          nodeSelector:
+            kubernetes.io/hostname: ocp4-4zmld-ipi-fzsk7-master-0
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/master
+          hostNetwork: true
+          hostPID: true
+          hostPID: true
+          serviceAccountName: perfinsights
+          restartPolicy: Never
+          dnsPolicy: ClusterFirst
+          volumes:
+          - hostPath:
+              path: /sys
+              type: Directory
+            name: sys
+          - hostPath:
+              path: /proc
+              type: Directory
+            name: proc
+          - hostPath:
+              path: /run
+              type: Directory
+            name: run
+          - hostPath:
+              path: /var/log
+              type: Directory
+            name: var-log
+          - hostPath:
+              path: /etc/redhat-release
+              type: FileOrCreate
+            name: etc-redhat-release
+          - name: report
+            persistentVolumeClaim:
+              claimName: report-pvc
